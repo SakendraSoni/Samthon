@@ -1,0 +1,26 @@
+.wrapper {
+	overflow-y: hidden;
+	height: 90vh;
+	width: 98vw;
+	background-color: grey;
+}
+
+.main-head {
+	color: aliceblue;
+	font-weight: bold;
+	width: 25vw;
+	font-size: 3rem;
+}
+
+.small-para {
+	width: 30vw;
+}
+
+.btn-learnmore {
+	border: solid 1px white;
+	background-color: transparent;
+}
+
+.btn-shop {
+	width: 5rem;
+}
