@@ -17,9 +17,9 @@ export const Interface = () => {
             <FormControl>
               <FormLabel>Material</FormLabel>
               <RadioGroup value={ringMaterial} onChange={(e) => setRingMaterial(parseInt(e.target.value))}>
-                <FormControlLabel value={0} control={<Radio />} label="Gold & Silver" />
-                <FormControlLabel value={1} control={<Radio />} label="Gold" />
-                <FormControlLabel value={2} control={<Radio />} label="Silver" />
+                <FormControlLabel value={0} control={<Radio />} label="Gold" />
+                <FormControlLabel value={1} control={<Radio />} label="Silver" />
+                {itemNo === 0 && <FormControlLabel value={2} control={<Radio />} label="Gold & Silver" />}
               </RadioGroup>
             </FormControl>
           </Box>
@@ -52,7 +52,13 @@ export const Interface = () => {
         <Box className="glass" p={3}>
           <FormControl>
             <FormLabel>Material</FormLabel>
-            <RadioGroup value={itemNo} onChange={(e) => setItemNo(parseInt(e.target.value))}>
+            <RadioGroup
+              value={itemNo}
+              onChange={(e) => {
+                setItemNo(parseInt(e.target.value));
+                setRingMaterial(0);
+              }}
+            >
               <FormControlLabel value={0} control={<Radio />} label="Wedding Ring" />
               <FormControlLabel value={1} control={<Radio />} label="Engagement Ring" />
               {/* <FormControlLabel value={2} control={<Radio />} label="Silver" /> */}
