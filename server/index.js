@@ -33,6 +33,14 @@ const Users = mongoose.model('Users', {
     date: { type: Date, default: Date.now },
 })
 
+app.get('/getCode', async (req, res) => {
+    await fetch('http://13.48.136.54:8000/api/api-code/', {
+        method: 'POST',
+        headers: { Authorization: 'Bearer b236308d-6214-4566-a8ad-dd4e1f00aed5' },
+    }).then((response) => response.json())
+        .then((data) => res.json({ data }));
+})
+
 //Creating Endpoint for registering users
 app.post('/signup', async (req, res) => {
     const user = new Users({
