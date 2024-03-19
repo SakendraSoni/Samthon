@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const BASE_URL = 'http://localhost:4000';
+const BASE_URL = process.env.REACT_APP_PROTOCOL + process.env.REACT_APP_HOST_URL;
 
 const SignUpPage = () => {
   const [formData, setFormData] = useState({

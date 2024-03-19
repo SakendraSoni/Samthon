@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const BASE_URL = 'http://localhost:4000';
+const BASE_URL = process.env.REACT_APP_PROTOCOL + process.env.REACT_APP_HOST_URL;
 
 const Footer = () => {
   const [APICODE, setAPICODE] = useState({});
