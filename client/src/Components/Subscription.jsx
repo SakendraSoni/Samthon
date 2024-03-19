@@ -13,8 +13,7 @@ const Subscription = () => {
 				</div>
 			</div>
 			<div className="right-part flex gap-7">
-				<button className="btn-pink">Learn More</button>
-				<button className="btn">Sign Up</button>
+				<button className="btn">Customize Now</button>
 			</div>
 		</div>
 	)

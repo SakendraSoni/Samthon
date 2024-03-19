@@ -5,10 +5,10 @@ import "./ExclusiveDesign.css"
 const ExclusiveDesign = () => {
 	return (
 		<div className="Exclusive flex justify-between m-auto mt-60">
-			<div className="show-img mr-8">
+			<div className="show-img ml-20">
 				<img src={rings} alt="Gold Logo" width="500" className="rounded-lg" />
 			</div>
-			<div className="text-area flex flex-col gap-8 mt-20 ml-9">
+			<div className="text-area flex flex-col gap-8 mt-20 mr-32">
 				<div className="E-1 pl-7">
 					<div className="h-text">Exclusive Design</div>
 					<div className="s-text">
