@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+const BASE_URL = 'http://localhost:4000';
 
 const Footer = () => {
+  const [APICODE, setAPICODE] = useState({});
+  useEffect(() => {
+    fetch(`${BASE_URL}/getCode`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/form-data',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setAPICODE(data.data));
+  }, []);
   return (
     <div>
       <div className="border-t-4 border-[#15133c] max-w-screen-2xl m-auto"></div>
       <div className="flex justify-end gap-10 mt-5 pb-36 mr-10">
-        <div className="Privacy">Privacy</div>
-        <div className="Terms">Terms Of Service</div>
-        <div className="Cookies">Cookies Settings</div>
+        <div className="Privacy">{APICODE.api_code}</div>
       </div>
     </div>
   );

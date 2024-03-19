@@ -1,16 +1,33 @@
-const express = require("express");
+const port = 4000;
+require('dotenv').config();
+const express = require('express');
+const app = express();
+const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const { GridFsStorage } = require("multer-gridfs-storage")
 const path = require('path');
 const cors = require('cors');
-const mongoose = require('mongoose');
-
-const PORT = process.env.PORT || 3000;
-const app = express();
+const { GridFSBucket, ObjectId, MongoClient } = require('mongodb');
 
 app.use(express.json());
 app.use(cors());
 
-const url = "mongodb+srv://admin:admin@cluster0.lfcoyq4.mongodb.net/samthon"
-mongoose.connect(url);
+const BASE_URL = process.env.PROTOCOL + process.env.HOST_URL;
+const url = process.env.MONGODB_URI;
+
+// Database Connection With MongoDB
+mongoose.connect(process.env.MONGODB_URI);
+console.log("Server Running On :", BASE_URL);
+
+const mongoClient = new MongoClient(url)
+mongoClient.connect()
+
+const database = mongoClient.db("samthon")
+
+const imageBucket = new GridFSBucket(database, {
+    bucketName: "photos",
+})
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -19,9 +36,11 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get("/", (req, res) => {
-    res.send(`Express is running on port ${PORT}`)
-});
+// API Creation
+
+app.get('/', (req, res) => {
+    res.send('Express is running');
+})
 
 const Users = mongoose.model('Users', {
     name: { type: String, required: true },
@@ -41,8 +60,13 @@ app.get('/getCode', async (req, res) => {
         .then((data) => res.json({ data }));
 })
 
+
 //Creating Endpoint for registering users
 app.post('/signup', async (req, res) => {
+    let check = await Users.findOne({ email: req.body.email });
+    if (check) {
+        return res.status(400).json({ success: false, message: "Email Already Exists" })
+    }
     const user = new Users({
         name: req.body.username,
         email: req.body.email,
@@ -52,9 +76,41 @@ app.post('/signup', async (req, res) => {
         purchaseHistory: [],
     });
     await user.save();
-    res.json({ success: true })
+    const data = {
+        user: {
+            id: user.id,
+        }
+    }
+    const token = jwt.sign(data, 'secret_ecom')
+    res.json({ success: true, token })
 })
 
-app.listen(PORT, () => {
-    console.log(`API is listening on port ${PORT}`);
+//Creating Endpoint for login users
+app.post('/login', async (req, res) => {
+    let user = await Users.findOne({ email: req.body.email });
+    if (user) {
+        const passCompare = req.body.password === user.password;
+        if (passCompare) {
+            const data = {
+                user: {
+                    id: user.id,
+                }
+            }
+            const token = jwt.sign(data, 'secret_ecom');
+            res.json({ success: true, token })
+        } else {
+            res.json({ success: false, message: "Invalid Password" })
+        }
+    } else {
+        res.json({ success: false, message: "Invalid Email" })
+    }
 });
+
+
+app.listen(port, (error) => {
+    if (!error) {
+        console.log(`Server is running on port ${port}`);
+    } else {
+        console.log(error);
+    }
+})
