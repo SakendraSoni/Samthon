@@ -2,6 +2,7 @@ import React from "react"
 import "./Navbar.css"
 import "./Hero.css"
 import hero from "../Assets/hero.png"
+import { Link } from "react-router-dom"
 
 const Hero = () => {
 	return (
@@ -14,7 +15,9 @@ const Hero = () => {
 					enhance your beauty.
 				</div>
 				<div className="multi-btns flex gap-6 ml-20">
-					<button className="btn-pink btn-shop">Shop</button>
+					<Link to="/Catagories">
+						<button className="btn-pink btn-shop">Shop</button>
+					</Link>
 					<button className="btn-pink btn-learnmore">Learn More</button>
 				</div>
 			</div>
