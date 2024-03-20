@@ -10,7 +10,7 @@ const Navbar = () => {
 	async function getRates() {
 		var myHeaders = new Headers()
 		// goldapi-e8ytcgsltzc474u-io
-		myHeaders.append("x-access-token", "goldapi-a1aovrlrnfkhrl-io")
+		myHeaders.append("x-access-token", "goldapi-e8ytcgsltzc474u-io")
 		myHeaders.append("Content-Type", "application/json")
 		var requestOptions = {
 			method: "GET",
