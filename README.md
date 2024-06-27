@@ -16,6 +16,7 @@ Integration with trusted payment gateways to facilitate secure online transacti
 ## Authors
 
 * Atharva Dhurvey - https://github.com/atharvadhurwey
+* Sakendra Soni - https://github.com/SakendraSoni
 * SaiGanesh -https://github.com/Saiganesh-001
 
 ## Link
